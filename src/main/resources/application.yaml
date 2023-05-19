@@ -1,0 +1,28 @@
+server:
+  port: 18180
+
+
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: film-service
+          uri: http://localhost:18183/
+          predicates:
+            - Path=/api/v*/films/**
+        - id: actor-service
+          uri: http://localhost:18181/
+          predicates:
+            - Path=/api/v*/actors/**
+        - id: actor-service
+          uri: http://localhost:18182/
+          predicates:
+            - Path=/api/v*/inventories/**
